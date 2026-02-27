@@ -1,0 +1,84 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "퓨처케이블 자재관리 API",
+    "description": "케이블 재고를 조회하고 차감하는 시스템",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://future-cable-api.onrender.com"
+    }
+  ],
+  "paths": {
+    "/stock/{product_id}": {
+      "get": {
+        "description": "특정 제품의 현재 재고 수량을 조회합니다.",
+        "operationId": "get_stock",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Product ID"
+            },
+            "description": "제품 모델명 (예: FC-HV-100)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stock/use": {
+      "post": {
+        "description": "제품 사용 후 재고를 차감합니다.",
+        "operationId": "use_stock",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "string",
+                    "title": "Product ID"
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "title": "Amount"
+                  }
+                },
+                "required": ["product_id", "amount"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
